@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boardPrograms.web.board.boardsMapper">
+	<!-- <resultMap type="hashmap" id="boardMap" /> -->
+	<resultMap id="accessMap" type="hashmap">
+		<result property="CAMP_ID" column="sWorkSect" javaType="java.lang.String" jdbcType='VARCHAR'></result>
+		<result property="CAMP_STAT_CD" column="sGRP_VDN"></result>
+		<result property="SCENARIO_NAME" column="sCalllist_Name"></result>
+		<result property="CAMP_NAME" column="sPre_Next" javaType="java.lang.String" jdbcType="VARCHAR"></result>
+		<result property="iSequence" column="iSequence" javaType="int" jdbcType="INTEGER"></result>
+		<result property="GRP_VDN" column="sFieldName" javaType="java.lang.String" jdbcType="VARCHAR"></result>
+		<result property="GRP_NAME" column="sAccount" javaType="java.lang.String" jdbcType="VARCHAR"></result>
+		<result property="TR_NAME" column="sText" javaType="java.lang.String" jdbcType="VARCHAR"></result>
+		<result property="CALLLIST_NAME" column="sFilterSect" javaType="java.lang.String" jdbcType="VARCHAR"></result>
+	</resultMap>
+	
+	<select id="getAccessList" statementType="CALLABLE" parameterType="ResultSet" resultType="ResultSet" useCache="true" resultMap="accessMap">
+		{call "SP_ACS_CAMP_INFO"('ref_result',
+		#{CAMP_ID, mode=IN, javaType=String, jdbcType=VARCHAR}, 
+		#{CAMP_STAT_CD, mode=IN, javaType=String, jdbcType=VARCHAR}, 
+		#{SCENARIO_NAME, mode=IN, javaType=String, jdbcType=VARCHAR}, 
+		#{CAMP_NAME, mode=IN}, ${CAMP_COUNT}, #{GRP_VDN, mode=IN}, #{GRP_NAME, mode=IN}, #{TR_NAME, mode=IN},
+		#{CALLLIST_NAME, mode=IN})
+		}
+	</select>
+		
+</mapper>
